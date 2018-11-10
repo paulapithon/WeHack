@@ -64,13 +64,6 @@ public class HistoryPersistence {
 
         try {
             JSONArray array = new JSONArray(users);
-            for(int i = 0; i < array.length(); i++) {
-                User userArray = new User();
-                userArray.decode(array.getString(i));
-                if (userArray.getID().equals(user.getID())) {
-                    array.remove(i);
-                }
-            }
             array.put(user.encode());
 
             sPreferences

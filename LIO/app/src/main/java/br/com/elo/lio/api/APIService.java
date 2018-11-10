@@ -14,7 +14,7 @@ public interface APIService {
             @Header("Content-Type") String contentType,
             @Header("MerchantId") String merchantID,
             @Header("MerchantKey") String merchantKey,
-            @Body JSONObject user
+            @Body String user
     );
 
     @POST("/update")
@@ -22,7 +22,7 @@ public interface APIService {
             @Header("Content-Type") String contentType,
             @Header("MerchantId") String merchantID,
             @Header("MerchantKey") String merchantKey,
-            @Body JSONObject user
+            @Body String user
     );
 
 }

@@ -149,6 +149,7 @@ public class UserActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
         total.setText(Integer.toString(user.getWallet()));
+        UserPersistence.addUser(user);
 
         RetrofitClient.getAPIService().update(
                 StoreConstants.AppJson,
@@ -157,12 +158,7 @@ public class UserActivity extends AppCompatActivity {
                 user.encode()
         ).enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                UserPersistence.removeUser(user.getID());
-                user.setTimestamp(new Timestamp(System.currentTimeMillis()).toString());
-                HistoryPersistence.addUser(user);
-                finish();
-            }
+            public void onResponse(Call<User> call, Response<User> response) {}
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {}

@@ -45,7 +45,7 @@ public class User implements Serializable {
         }
     }
 
-    public JSONObject encode() {
+    public String encode() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("id", ID);
@@ -64,7 +64,7 @@ public class User implements Serializable {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return jsonObject;
+        return jsonObject.toString();
     }
 
     public List<Produto> getProdutos() {
