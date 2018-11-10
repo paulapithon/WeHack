@@ -1,0 +1,35 @@
+[
+  {
+    "id": "d4efa383-a99a-48d0-9213-ce324a34fcac",
+    "data": [
+      {
+        "text": "Finalizar",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "9d620d9f-50c2-4a9e-bfa1-9da20e53705b",
+    "data": [
+      {
+        "text": "Encerrar meu carrinho",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "2548fc11-5eef-40dd-986f-2c6d47bc4482",
+    "data": [
+      {
+        "text": "Finalizar meu carrinho",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  }
+]
