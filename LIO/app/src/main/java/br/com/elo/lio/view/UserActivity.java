@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,21 +19,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
 import br.com.elo.lio.R;
+import br.com.elo.lio.api.RetrofitClient;
 import br.com.elo.lio.model.Produto;
 import br.com.elo.lio.model.User;
 import br.com.elo.lio.persistence.HistoryPersistence;
 import br.com.elo.lio.persistence.UserPersistence;
 import br.com.elo.lio.view.adapter.ProdutoAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class UserActivity extends AppCompatActivity {
+
+    public String TAG = "elo.User";
 
     private User user;
     private TextView total;
@@ -146,13 +154,31 @@ public class UserActivity extends AppCompatActivity {
 
     public void onSaveUser() {
         //TODO request user payment using ID and total value
+        String userEncode = user.encode().replace("\\", "");
+        RetrofitClient.getAPIService().pay(userEncode).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                try {
+                    if(response.errorBody().string() == null) {
+                        Toast.makeText(UserActivity.this, "Requisição enviada para " + user.getNome() + ".", Toast.LENGTH_LONG).show();
+                        UserPersistence.removeUser(user.getID());
+                        user.setTimestamp(new Timestamp(System.currentTimeMillis()).toString());
+                        HistoryPersistence.addUser(user);
+                        finish();
+                    } else {
+                        Log.e(TAG, response.errorBody().string());
+                        Toast.makeText(UserActivity.this, "Falha ao enviar requisição para " + user.getNome() + ".", Toast.LENGTH_LONG).show();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
-        Toast.makeText(this, "Requisição enviada para " + user.getNome() + ".", Toast
-                .LENGTH_LONG).show();
-        UserPersistence.removeUser(user.getID());
-        user.setTimestamp(new Timestamp(System.currentTimeMillis()).toString());
-        HistoryPersistence.addUser(user);
-        finish();
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(UserActivity.this, "Falha ao enviar requisição para " + user.getNome() + ".", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void onExitUser() {

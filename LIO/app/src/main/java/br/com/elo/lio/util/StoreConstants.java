@@ -1,5 +1,8 @@
 package br.com.elo.lio.util;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * LG ELECTRONICS INC.
  * LGEBR - SCA R&D, Sao Paulo, SP, Brazil
@@ -14,5 +17,16 @@ public class StoreConstants {
 
     public static String MerchantId = "d9a6696f-708e-4c58-9977-62290337944d";
     public static String MerchantKey = "NYSUGODOTIOIFTPGQWWGOTPEJVXAYRVGIJTFJYGT";
+
+    public static String encode () {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("MerchantId", MerchantId);
+            jsonObject.put("MerchantKey", MerchantKey);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
+    }
 
 }

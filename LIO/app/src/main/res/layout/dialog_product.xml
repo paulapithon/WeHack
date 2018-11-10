@@ -22,7 +22,7 @@
         android:layout_weight="1"
         android:ems="10"
         android:hint="Quantidade"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:padding="8dp" />
 
     <EditText
@@ -32,5 +32,5 @@
         android:layout_weight="1"
         android:ems="10"
         android:hint="Valor"
-        android:inputType="textPersonName" />
+        android:inputType="number" />
 </LinearLayout>
