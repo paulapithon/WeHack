@@ -1,0 +1,44 @@
+{
+  "id": "f251af16-1d8b-4d2d-bca8-999f187751a4",
+  "name": "Dividir a Conta",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [
+        {
+          "name": "DividiraConta-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 2,
+          "platform": "slack",
+          "lang": "pt-br",
+          "title": "Com a galera é sempre mais legal, para aceitar dividir a conta basta clicar em \"Quero dividir\"",
+          "replies": [
+            "Quero dividir"
+          ]
+        },
+        {
+          "type": 0,
+          "lang": "pt-br",
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {
+        "slack": true
+      },
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

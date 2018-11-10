@@ -1,0 +1,80 @@
+[
+  {
+    "id": "3f600516-e46e-495f-877b-384d504277cb",
+    "data": [
+      {
+        "text": "Quero ajuda para usar",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "dcdae1f4-5019-4d14-86cb-dff5221da996",
+    "data": [
+      {
+        "text": "Me ajuda",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "24af4753-c350-405f-a0f3-606727120d8d",
+    "data": [
+      {
+        "text": "Ajuda",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "7b0357cb-d560-4439-b92e-5b8349469888",
+    "data": [
+      {
+        "text": "Como faço para usar?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "6f88d6c4-e147-47c5-87fc-16061e486e86",
+    "data": [
+      {
+        "text": "Como funciona esse QR Code?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "0e6355ca-6e7f-47cb-a5ad-c4d6f9e3b5a5",
+    "data": [
+      {
+        "text": "Como você funciona?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "55dd605d-315c-40d7-86fb-3118f65746a8",
+    "data": [
+      {
+        "text": "Como isso funciona?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  }
+]

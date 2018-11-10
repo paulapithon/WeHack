@@ -1,0 +1,40 @@
+{
+  "id": "4e956204-08ec-476d-8882-3cf8f0c8466e",
+  "parentId": "a982146b-4619-444e-9f41-aa3de2fb03b5",
+  "rootParentId": "3dc46b38-fda0-4ffd-840c-e4d9bebc33f0",
+  "name": "Como isso funciona? - Me fale mais sobre.. - custom",
+  "auto": true,
+  "contexts": [
+    "Comoissofunciona-Mefalemaissobre-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "Comoissofunciona.Comoissofunciona-custom.Comoissofunciona-Mefalemaissobre-custom",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 2,
+          "platform": "telegram",
+          "lang": "pt-br",
+          "title": "E então você pode simplesmente sair do restaurante, e fácil assim, está pago! Já no caso de uma loja de roupas por exemplo, basta escanear o QR Code no caixa, ao passar suas compras e pronto, também está pago. Simples, fácil e seguro!",
+          "replies": [
+            "Gerar QR Code agora!",
+            "Voltar ao Menu"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {
+        "telegram": false
+      },
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1508189244539,
+  "fallbackIntent": false,
+  "events": []
+}

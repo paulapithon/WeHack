@@ -1,0 +1,37 @@
+{
+  "id": "cc9c8e7a-400a-4135-a5e2-d56696575315",
+  "name": "Gerar meu QR Code",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "gerar_qr_code",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 2,
+          "platform": "telegram",
+          "lang": "pt-br",
+          "title": "Basta autenticar este QR Code em uma máquina LIO ou LIO App",
+          "replies": [
+            "Ver meu carrinho",
+            "Dividir a conta",
+            "Finalizar Carrinho",
+            "Voltar ao menu"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {
+        "telegram": true
+      },
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

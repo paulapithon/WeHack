@@ -1,0 +1,41 @@
+{
+  "id": "8b935d68-e2bb-43ce-8de0-b332058f1c7a",
+  "name": "Ver meu carrinho",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "ver_carrinho",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 2,
+          "platform": "telegram",
+          "lang": "pt-br",
+          "title": "Aqui está:",
+          "replies": [
+            "Consultar novamente",
+            "Finalizar o carrinho",
+            "Voltar ao menu"
+          ]
+        },
+        {
+          "type": 0,
+          "lang": "pt-br",
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {
+        "telegram": true
+      },
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

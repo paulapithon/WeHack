@@ -1,0 +1,40 @@
+{
+  "id": "5b2859a7-67c2-4bf9-9b78-07bfd6e9e643",
+  "name": "Voltar ao menu",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 2,
+          "platform": "telegram",
+          "lang": "pt-br",
+          "title": "Separei algumas das opções para você, mas qualquer coisa é só falar tá?",
+          "replies": [
+            "Gerar meu QR",
+            "Conhecer a Elô",
+            "Minhas informações"
+          ]
+        },
+        {
+          "type": 0,
+          "lang": "pt-br",
+          "speech": "Separei algumas das opções para você, mas qualquer coisa é só falar tá?"
+        }
+      ],
+      "defaultResponsePlatforms": {
+        "telegram": false
+      },
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

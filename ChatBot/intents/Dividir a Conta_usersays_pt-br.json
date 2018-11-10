@@ -1,0 +1,35 @@
+[
+  {
+    "id": "47bbad7e-a6c5-491f-b8a4-33630ef437c5",
+    "data": [
+      {
+        "text": "Dividir o valor",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "328d100d-fd94-43e1-9660-17b8646c08b6",
+    "data": [
+      {
+        "text": "/Dividir",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "f17144e4-d595-49a7-9fbc-6bf135b788fe",
+    "data": [
+      {
+        "text": "Dividir a conta",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "id": "3dc46b38-fda0-4ffd-840c-e4d9bebc33f0",
+  "name": "Como isso funciona?",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [
+        {
+          "name": "Comoissofunciona-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 2,
+          "platform": "telegram",
+          "lang": "pt-br",
+          "title": "Te explico tudinho! Sempre que você for em um restaurante, posto de gasolina ou em um super mercado por exemplo, você pode me pedir para gerar um QR Code.",
+          "replies": [
+            "Me fale mais sobre..",
+            "Certo, já entendi!"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {
+        "telegram": true
+      },
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}
