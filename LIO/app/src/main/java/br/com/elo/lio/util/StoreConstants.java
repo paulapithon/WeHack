@@ -15,6 +15,7 @@ import org.json.JSONObject;
  */
 public class StoreConstants {
 
+    public static String AppJson = "application/json";
     public static String MerchantId = "d9a6696f-708e-4c58-9977-62290337944d";
     public static String MerchantKey = "NYSUGODOTIOIFTPGQWWGOTPEJVXAYRVGIJTFJYGT";
 
