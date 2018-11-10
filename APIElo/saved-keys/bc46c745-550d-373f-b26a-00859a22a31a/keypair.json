@@ -1,0 +1,17 @@
+{
+	"pair": {
+		"kty": "EC",
+		"kid": "my-key-id",
+		"crv": "P-256",
+		"x": "cIckOSgrYtIXHY35wDb9vDP3upihEO8K-87SODi3npc",
+		"y": "PXkGlv9uH0P0d7tWtCnTI60kAXoqQiwQrPJFR6zT-HI",
+		"d": "kezSS8NCp09fk3JMn3mV8tLSfXc7Za7-VD9Qzr34LCI"
+	},
+	"public": {
+		"kty": "EC",
+		"kid": "my-key-id",
+		"crv": "P-256",
+		"x": "cIckOSgrYtIXHY35wDb9vDP3upihEO8K-87SODi3npc",
+		"y": "PXkGlv9uH0P0d7tWtCnTI60kAXoqQiwQrPJFR6zT-HI"
+	}
+}

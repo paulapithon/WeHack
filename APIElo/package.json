@@ -1,0 +1,21 @@
+{
+  "name": "elo-sdk-node-js",
+  "version": "1.0.0",
+  "description": "implementação baseada no código disponível pela Elo e desenvolvida para o hackathon WeHack 2018",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Ramon Wanderley",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "fs-extra": "^7.0.1",
+    "generate-rsa-keypair": "^0.1.2",
+    "json-to-graphql-query": "^1.9.0",
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "node-fetch": "^1.5.1",
+    "node-jose": "^1.1.0"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}
