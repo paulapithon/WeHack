@@ -1,16 +1,12 @@
 {
-  "id": "195e421f-b97c-4a1d-8b5f-fbb8c2558aaf",
-  "parentId": "f251af16-1d8b-4d2d-bca8-999f187751a4",
-  "rootParentId": "f251af16-1d8b-4d2d-bca8-999f187751a4",
-  "name": "Dividir a Conta - Quero dividir",
+  "id": "e61cbe8a-027c-4312-ab4c-d77cc80c3f8c",
+  "name": "Finalizar meu carrinho",
   "auto": true,
-  "contexts": [
-    "DividiraConta-followup"
-  ],
+  "contexts": [],
   "responses": [
     {
       "resetContexts": false,
-      "action": "novo_user_dividir_conta",
+      "action": "finalizar_carrinho",
       "affectedContexts": [],
       "parameters": [],
       "messages": [
@@ -18,12 +14,10 @@
           "type": 2,
           "platform": "telegram",
           "lang": "pt-br",
-          "title": "Certo $user_name a partir de agora você está na vaquinha",
+          "title": "Tudo certo! Sua compra já está sendo processada e você já está livre para ir, fácil assim!",
           "replies": [
-            "Quero dividir também",
-            "Ver o carrinho",
-            "Finalizar o carrinho",
-            "Voltar ao Menu"
+            "Gerar um novo QR Cod",
+            "Voltar ao menu"
           ]
         },
         {
@@ -41,7 +35,6 @@
   "priority": 500000,
   "webhookUsed": false,
   "webhookForSlotFilling": false,
-  "lastUpdate": 1508189244539,
   "fallbackIntent": false,
   "events": []
 }

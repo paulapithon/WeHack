@@ -22,7 +22,7 @@ public class Produto implements Serializable{
         }
     }
 
-    public String encode() {
+    public JSONObject encode() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("nome", nome);
@@ -31,7 +31,7 @@ public class Produto implements Serializable{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return jsonObject.toString();
+        return jsonObject;
 
     }
 

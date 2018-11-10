@@ -29,6 +29,7 @@ import br.com.elo.lio.model.Produto;
 import br.com.elo.lio.model.User;
 import br.com.elo.lio.persistence.HistoryPersistence;
 import br.com.elo.lio.persistence.UserPersistence;
+import br.com.elo.lio.util.StoreConstants;
 import br.com.elo.lio.view.adapter.ProdutoAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -129,8 +130,6 @@ public class UserActivity extends AppCompatActivity {
                 produtos.add(produto);
                 user.setProdutos(produtos);
                 updateProduct();
-
-                //TODO send added product
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -150,28 +149,36 @@ public class UserActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
         total.setText(Integer.toString(user.getWallet()));
+        UserPersistence.addUser(user);
+
+        RetrofitClient.getAPIService().update(
+                StoreConstants.AppJson,
+                StoreConstants.MerchantId,
+                StoreConstants.MerchantKey,
+                user.encode()
+        ).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {}
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {}
+        });
     }
 
     public void onSaveUser() {
-        //TODO request user payment using ID and total value
-        String userEncode = user.encode().replace("\\", "");
-        RetrofitClient.getAPIService().pay(userEncode).enqueue(new Callback<User>() {
+        RetrofitClient.getAPIService().pay(
+                StoreConstants.AppJson,
+                StoreConstants.MerchantId,
+                StoreConstants.MerchantKey,
+                user.encode()
+        ).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                try {
-                    if(response.errorBody().string() == null) {
-                        Toast.makeText(UserActivity.this, "Requisição enviada para " + user.getNome() + ".", Toast.LENGTH_LONG).show();
-                        UserPersistence.removeUser(user.getID());
-                        user.setTimestamp(new Timestamp(System.currentTimeMillis()).toString());
-                        HistoryPersistence.addUser(user);
-                        finish();
-                    } else {
-                        Log.e(TAG, response.errorBody().string());
-                        Toast.makeText(UserActivity.this, "Falha ao enviar requisição para " + user.getNome() + ".", Toast.LENGTH_LONG).show();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Toast.makeText(UserActivity.this, "Requisição enviada para " + user.getNome() + ".", Toast.LENGTH_LONG).show();
+                UserPersistence.removeUser(user.getID());
+                user.setTimestamp(new Timestamp(System.currentTimeMillis()).toString());
+                HistoryPersistence.addUser(user);
+                finish();
             }
 
             @Override

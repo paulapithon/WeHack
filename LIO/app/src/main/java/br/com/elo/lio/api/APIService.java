@@ -1,14 +1,28 @@
 package br.com.elo.lio.api;
 
+import org.json.JSONObject;
+
 import br.com.elo.lio.model.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Headers;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface APIService {
-    @Headers("{'MerchantId':'d9a6696f-708e-4c58-9977-62290337944d', 'MerchantKey':'NYSUGODOTIOIFTPGQWWGOTPEJVXAYRVGIJTFJYGT'}")
     @POST("/payment")
-    Call<User> pay(@Body String user);
+    Call<User> pay(
+            @Header("Content-Type") String contentType,
+            @Header("MerchantId") String merchantID,
+            @Header("MerchantKey") String merchantKey,
+            @Body String user
+    );
+
+    @POST("/update")
+    Call<User> update(
+            @Header("Content-Type") String contentType,
+            @Header("MerchantId") String merchantID,
+            @Header("MerchantKey") String merchantKey,
+            @Body String user
+    );
 
 }

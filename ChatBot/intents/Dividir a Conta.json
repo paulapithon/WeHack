@@ -6,6 +6,7 @@
   "responses": [
     {
       "resetContexts": false,
+      "action": "inicio_dividir_conta",
       "affectedContexts": [
         {
           "name": "DividiraConta-followup",
@@ -17,11 +18,12 @@
       "messages": [
         {
           "type": 2,
-          "platform": "slack",
+          "platform": "telegram",
           "lang": "pt-br",
-          "title": "Com a galera é sempre mais legal, para aceitar dividir a conta basta clicar em \"Quero dividir\"",
+          "title": "Com a galera é sempre mais legal, para aceitar dividir a conta basta clicar em \"Quero dividir!\"",
           "replies": [
-            "Quero dividir"
+            "Quero dividir!",
+            "Voltar ao menu"
           ]
         },
         {
@@ -31,7 +33,8 @@
         }
       ],
       "defaultResponsePlatforms": {
-        "slack": true
+        "slack": false,
+        "telegram": true
       },
       "speech": []
     }
