@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.elo.lio.view.CurrentFragment">
-
+    tools:context="br.com.elo.lio.view.fragment.CurrentFragment">
 
     <ListView
         android:id="@+id/user_list"
@@ -14,7 +13,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"

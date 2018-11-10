@@ -11,10 +11,10 @@ import java.util.List;
 
 import br.com.elo.lio.model.User;
 
-public class UserPersistence {
+public class HistoryPersistence {
 
     private static String APP_PREFERENCES = "elo.UserPersistence";
-    private static String USER_LIST = "elo.users";
+    private static String USER_LIST = "elo.history";
 
     private static SharedPreferences sPreferences;
 
@@ -83,29 +83,5 @@ public class UserPersistence {
         }
 
     }
-
-    public static void removeUser(String ID) {
-        String users = sPreferences.getString(USER_LIST, "[]");
-
-        try {
-            JSONArray array = new JSONArray(users);
-            for(int i = 0; i < array.length(); i++) {
-                User userArray = new User();
-                userArray.decode(array.getString(i));
-                if (userArray.getID().equals(ID)) {
-                    array.remove(i);
-                }
-            }
-
-            sPreferences
-                    .edit()
-                    .putString(USER_LIST, array.toString())
-                    .apply();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }

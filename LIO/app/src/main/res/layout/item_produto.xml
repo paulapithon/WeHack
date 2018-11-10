@@ -7,45 +7,36 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/user_item_name"
+        android:id="@+id/prod_qtd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/user_item_cpf"
-        android:layout_width="wrap_content"
+        android:id="@+id/prod_nome"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:paddingBottom="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_item_name" />
+        app:layout_constraintEnd_toStartOf="@+id/prod_valor"
+        app:layout_constraintStart_toEndOf="@+id/prod_qtd"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/user_item_wallet"
+        android:id="@+id/prod_valor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/user_timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/user_item_wallet"
-        app:layout_constraintEnd_toStartOf="@+id/user_item_wallet"
-        app:layout_constraintTop_toTopOf="@+id/user_item_wallet" />
 </android.support.constraint.ConstraintLayout>

@@ -19,7 +19,8 @@ import org.json.JSONObject;
 
 import br.com.elo.lio.R;
 import br.com.elo.lio.model.User;
-import br.com.elo.lio.persistence.UserPersistence;
+import br.com.elo.lio.view.fragment.CurrentFragment;
+import br.com.elo.lio.view.fragment.HistoryFragment;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -58,7 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
         openFragment(new CurrentFragment());
     }
 
-    private void openFragment(Fragment fragment) {
+    public void openFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment);
         transaction.addToBackStack(null);
@@ -76,8 +77,11 @@ public class DashboardActivity extends AppCompatActivity {
                 try {
                     JSONObject cliente = new JSONObject(result.getContents());
                     User user = new User();
-                    user.encode(cliente.toString());
-                    UserPersistence.addUser(user);
+                    user.decode(cliente.toString());
+
+                    Intent intent = new Intent(this, UserActivity.class);
+                    intent.putExtra("elo.user", user);
+                    startActivity(intent);
 
                     Toast.makeText(this, user.getNome() + " adicionado à lista de compras em " +
                                     "andamento.", Toast.LENGTH_LONG).show();

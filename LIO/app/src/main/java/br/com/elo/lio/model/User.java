@@ -1,27 +1,24 @@
 package br.com.elo.lio.model;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * LG ELECTRONICS INC.
- * LGEBR - SCA R&D, Sao Paulo, SP, Brazil
- * LGEMR - Santa Clara, CA, USA
- * Copyright(c) 2017 by LG Electronics Inc.
- * <p>
- * <p>
- * All rights reserved. No part of this work may be reproduced, stored in a retrieval system, or transmitted by any
- * means without prior written Permission of LG Electronics Inc.
- */
-public class User {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class User implements Serializable {
 
     private String nome;
     private String CPF;
     private String email;
     private String ID;
     private int wallet;
+    private String timestamp;
+    private List<Produto> produtos;
 
-    public void encode(String user) {
+    public void decode(String user) {
         try {
             JSONObject jsonObject = new JSONObject(user);
             ID = jsonObject.getString("id");
@@ -31,12 +28,24 @@ public class User {
             if (jsonObject.has("wallet")) {
                 wallet = jsonObject.getInt("wallet");
             }
+            if (jsonObject.has("time")) {
+                timestamp = jsonObject.getString("time");
+            }
+            produtos = new ArrayList<>();
+            if (jsonObject.has("produtos")) {
+                JSONArray produtoArray = jsonObject.getJSONArray("produtos");
+                for (int i = 0; i < produtoArray.length(); i++) {
+                    Produto produto = new Produto();
+                    produto.decode(produtoArray.getString(i));
+                    produtos.add(produto);
+                }
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public String decode() {
+    public String encode() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("id", ID);
@@ -44,10 +53,35 @@ public class User {
             jsonObject.put("cpf", CPF);
             jsonObject.put("email", email);
             jsonObject.put("wallet", wallet);
+            jsonObject.put("time", timestamp);
+
+            JSONArray jsonArray = new JSONArray();
+            for(Produto produto : produtos) {
+                jsonArray.put(produto.encode());
+            }
+            jsonObject.put("produtos", jsonArray);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return jsonObject.toString();
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+        updateWallet();
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public int getWallet() {
@@ -56,6 +90,13 @@ public class User {
 
     public void setWallet(int wallet) {
         this.wallet = wallet;
+    }
+
+    private void updateWallet() {
+        wallet = 0;
+        for (Produto produto : produtos) {
+            wallet += produto.getValor() * produto.getQuantidade();
+        }
     }
 
     public String getNome() {
