@@ -125,6 +125,8 @@ def webhook():
 def telegram():
     data = request.get_json()
     print(data);
+    if "text" not in data["message"]:
+        return "not text", 200
     print(data["message"]["text"])
     msg_text = data["message"]["text"];
     msg_id = data["message"]["chat"]["id"]
@@ -146,10 +148,10 @@ def telegram():
 
             ##Add Quick Replies
             if "replies" in json.dumps(m):
-               quickReplies(msg_id, m["title"], m["replies"])
+               quickReplies(msg_id, m["title"].replace("$user_name",data["message"]["from"]["first_name"]), m["replies"])
             ##Send Message
             else:         
-                send_message_telegram(m["speech"].encode('utf-8'), str(msg_id))  
+                send_message_telegram(m["speech"].replace("$user_name",data["message"]["from"]["first_name"]).encode('utf-8'), str(msg_id))  
        
     ##Execute Actions
     if "action" in json.dumps(response_obj["result"]):
@@ -252,6 +254,7 @@ def log(message):  # simple wrapper for logging to stdout on heroku
 @app.route('/payment', methods=['POST'])
 def payment():
     data = request.get_json()
+    data = data["nameValuePairs"]
     print(data)
     uid = data["id"]
     name = data["nome"]
@@ -298,6 +301,11 @@ def payment():
     print("deu bem, enviado")
     send_message_telegram("Compra finalizada na Accenture Happy Hour. Custo final: " + str(valor), uid)
     return "ok", 200
+
+##chatbot commands
+@tb.message_handler(commands=['dividir'])
+def handle_dividir(message):
+    send_message_telegram("Conta dividida iniciada! Digite \participar para entrar.")
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 3000))
