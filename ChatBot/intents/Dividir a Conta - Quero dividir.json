@@ -1,0 +1,47 @@
+{
+  "id": "195e421f-b97c-4a1d-8b5f-fbb8c2558aaf",
+  "parentId": "f251af16-1d8b-4d2d-bca8-999f187751a4",
+  "rootParentId": "f251af16-1d8b-4d2d-bca8-999f187751a4",
+  "name": "Dividir a Conta - Quero dividir",
+  "auto": true,
+  "contexts": [
+    "DividiraConta-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "DividiraConta.DividiraConta-custom",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 2,
+          "platform": "telegram",
+          "lang": "pt-br",
+          "title": "Certo $user_name a partir de agora você está na vaquinha",
+          "replies": [
+            "Quero dividir também",
+            "Ver o carrinho",
+            "Finalizar o carrinho",
+            "Voltar ao Menu"
+          ]
+        },
+        {
+          "type": 0,
+          "lang": "pt-br",
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {
+        "telegram": true
+      },
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1508189244539,
+  "fallbackIntent": false,
+  "events": []
+}

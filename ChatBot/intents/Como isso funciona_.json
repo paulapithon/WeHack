@@ -1,25 +1,28 @@
 {
-  "id": "cc9c8e7a-400a-4135-a5e2-d56696575315",
-  "name": "Gerar meu QR Code",
+  "id": "3dc46b38-fda0-4ffd-840c-e4d9bebc33f0",
+  "name": "Como isso funciona?",
   "auto": true,
   "contexts": [],
   "responses": [
     {
       "resetContexts": false,
-      "action": "gerar_qr_code",
-      "affectedContexts": [],
+      "affectedContexts": [
+        {
+          "name": "Comoissofunciona-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
       "parameters": [],
       "messages": [
         {
           "type": 2,
           "platform": "telegram",
           "lang": "pt-br",
-          "title": "Basta autenticar este QR Code em uma máquina LIO ou LIO App",
+          "title": "Te explico tudinho! Sempre que você for em um restaurante, posto de gasolina ou em um super mercado por exemplo, você pode me pedir para gerar um QR Code.",
           "replies": [
-            "Ver meu carrinho",
-            "Dividir a conta",
-            "Finalizar Carrinho",
-            "Voltar ao menu"
+            "Me fale mais sobre..",
+            "Certo, já entendi!"
           ]
         }
       ],

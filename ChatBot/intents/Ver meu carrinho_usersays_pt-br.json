@@ -1,0 +1,35 @@
+[
+  {
+    "id": "ee4ab7e2-20ea-4a13-b6ed-8721f1f2e2f3",
+    "data": [
+      {
+        "text": "Mostrar a minha parcial",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "4e62041c-f984-4f75-a15d-04e3792f829b",
+    "data": [
+      {
+        "text": "Quero ver minha conta",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "fc0dca03-8e7d-4955-bc79-9aa014c9c555",
+    "data": [
+      {
+        "text": "Ver meu carrinho",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  }
+]

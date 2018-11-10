@@ -1,33 +1,37 @@
 {
-  "id": "5b2859a7-67c2-4bf9-9b78-07bfd6e9e643",
-  "name": "Voltar ao menu",
+  "id": "f251af16-1d8b-4d2d-bca8-999f187751a4",
+  "name": "Dividir a Conta",
   "auto": true,
   "contexts": [],
   "responses": [
     {
       "resetContexts": false,
-      "affectedContexts": [],
+      "affectedContexts": [
+        {
+          "name": "DividiraConta-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
       "parameters": [],
       "messages": [
         {
           "type": 2,
-          "platform": "telegram",
+          "platform": "slack",
           "lang": "pt-br",
-          "title": "Separei algumas das opções para você, mas qualquer coisa é só falar tá?",
+          "title": "Com a galera é sempre mais legal, para aceitar dividir a conta basta clicar em \"Quero dividir\"",
           "replies": [
-            "Gerar meu QR",
-            "Conhecer a Elô",
-            "Minhas informações"
+            "Quero dividir"
           ]
         },
         {
           "type": 0,
           "lang": "pt-br",
-          "speech": "Separei algumas das opções para você, mas qualquer coisa é só falar tá?"
+          "speech": []
         }
       ],
       "defaultResponsePlatforms": {
-        "telegram": false
+        "slack": true
       },
       "speech": []
     }

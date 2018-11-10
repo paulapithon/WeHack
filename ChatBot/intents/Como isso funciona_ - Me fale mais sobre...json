@@ -1,0 +1,51 @@
+{
+  "id": "a982146b-4619-444e-9f41-aa3de2fb03b5",
+  "parentId": "3dc46b38-fda0-4ffd-840c-e4d9bebc33f0",
+  "rootParentId": "3dc46b38-fda0-4ffd-840c-e4d9bebc33f0",
+  "name": "Como isso funciona? - Me fale mais sobre..",
+  "auto": true,
+  "contexts": [
+    "Comoissofunciona-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "Comoissofunciona.Comoissofunciona-custom",
+      "affectedContexts": [
+        {
+          "name": "Comoissofunciona-Mefalemaissobre-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 2,
+          "platform": "telegram",
+          "lang": "pt-br",
+          "title": "No restaurante por exemplo, você pode assim que chegar, escanear esse QR Code em uma máquina LIO, e então a partir daí tudo que você pede vai sendo adicionado ao seu carrinho, e você pode consultar a qualquer momento o seu carrinho.",
+          "replies": [
+            "Mas e então?"
+          ]
+        },
+        {
+          "type": 0,
+          "lang": "pt-br",
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {
+        "slack": false,
+        "telegram": false
+      },
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1508189244539,
+  "fallbackIntent": false,
+  "events": []
+}
