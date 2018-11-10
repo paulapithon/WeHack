@@ -11,17 +11,29 @@
       "parameters": [],
       "messages": [
         {
+          "type": 2,
+          "platform": "telegram",
+          "lang": "pt-br",
+          "title": "Escolha uma opção:",
+          "replies": [
+            "Gerar meu QR Code",
+            "Conhecer a Elô",
+            "Voltar ao menu"
+          ]
+        },
+        {
           "type": 0,
           "lang": "pt-br",
           "speech": [
-            "Lamento, mas não compreendi.",
-            "Desculpe, mas não compreendi.",
-            "Infelizmente, não captei o que deseja.",
-            "Não consegui compreender, desculpe."
+            "Dessa vez eu não consegui entender, ainda estou sendo desenvolvida durante o WeHack, posso te mandar algumas opções do que já foi desenvolvido.",
+            "Opa, essa eu não consegui captar, meus desenvolvedores já conseguiram fazer muita coisa durante o WeHack, mas não dá pra fazer tudo certo? Aqui estão algumas opções do que você pode fazer.",
+            "Ops, essa eu ainda não fui programada para responder, mas vou te deixar aqui algumas opções de ações que já estão funcionando."
           ]
         }
       ],
-      "defaultResponsePlatforms": {},
+      "defaultResponsePlatforms": {
+        "telegram": true
+      },
       "speech": []
     }
   ],

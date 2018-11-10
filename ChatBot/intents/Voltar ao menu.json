@@ -1,12 +1,11 @@
 {
-  "id": "9bf722b4-a86e-439d-ab36-1a695ed31b7c",
-  "name": "Default Welcome Intent",
+  "id": "5b2859a7-67c2-4bf9-9b78-07bfd6e9e643",
+  "name": "Voltar ao menu",
   "auto": true,
   "contexts": [],
   "responses": [
     {
       "resetContexts": false,
-      "action": "input.welcome",
       "affectedContexts": [],
       "parameters": [],
       "messages": [
@@ -14,9 +13,9 @@
           "type": 2,
           "platform": "telegram",
           "lang": "pt-br",
-          "title": "Você também pode navegar através das opções",
+          "title": "Separei algumas das opções para você, mas qualquer coisa é só falar tá?",
           "replies": [
-            "Gerar meu QR Code",
+            "Gerar meu QR",
             "Conhecer a Elô",
             "Minhas informações"
           ]
@@ -24,10 +23,7 @@
         {
           "type": 0,
           "lang": "pt-br",
-          "speech": [
-            "Olá! Eu sou a Eloise, mas você me chamar de Elô. Tô aqui pra te ajudar a ter toda uma experiência Elo cada vez mais Easy!",
-            "Oi, tudo bom? Eu sou a Eloise, mas você me chamar de Elô. Tô aqui pra te ajudar a ter toda uma experiência Elo cada vez mais Easy!"
-          ]
+          "speech": []
         }
       ],
       "defaultResponsePlatforms": {
@@ -40,9 +36,5 @@
   "webhookUsed": false,
   "webhookForSlotFilling": false,
   "fallbackIntent": false,
-  "events": [
-    {
-      "name": "WELCOME"
-    }
-  ]
+  "events": []
 }
