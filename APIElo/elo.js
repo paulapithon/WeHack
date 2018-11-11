@@ -417,7 +417,7 @@ class Elo {
     }
 
     async addPublicKeyToUser(key, accessToken) {
-        delete key.public['kid'];
+        //delete key.public['kid'];
         const keyString = JSON.stringify(key.public)
         // console.log(keyString);
 
