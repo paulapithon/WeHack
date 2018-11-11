@@ -14,13 +14,13 @@ _Prazer, eu sou a Eloise, mas pode me chamar de Elô, a sua inteligência artifi
 
 ## Arquitetura
 
-### Api de Cadastro
+### API de Cadastro
   
 <img src="https://proxydata.com.br/gestao/share/adm_usuarios/59ca9e4d98f19.png" alt="drawing" width="200"/>
   
 Para cadastro foi utilizada a API de [Cadastro do portador](https://dev.elo.com.br/apis/cadastro-do-portador) da **Elo**, liberando o cartão do usuário para consulta de dados, o código se encontra no folder [APIElo](https://github.com/OtacilioN/WeHack-Argen-4/tree/master/APIElo)
 
-### Api de Pagamento
+### API de Pagamento
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Logo_of_Cielo.svg/1200px-Logo_of_Cielo.svg.png" alt="drawing" width="200"/>
 
