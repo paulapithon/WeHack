@@ -77,8 +77,13 @@ public class User implements Serializable {
     }
 
     public String getTimestamp() {
+        if (timestamp == null) {
+            return "";
+        }
         String[] pieces = timestamp.split(" ");
-        return pieces[0];
+        String[] numbers = pieces[0].split("-");
+
+        return numbers[2] + "/" + numbers[1] + "/" + numbers[0];
     }
 
     public void setTimestamp(String timestamp) {

@@ -91,16 +91,16 @@ public class DashboardActivity extends AppCompatActivity {
                     startActivity(intent);
 
                     Toast.makeText(this, user.getNome() + " adicionado à lista de compras em " +
-                                    "andamento.", Toast.LENGTH_LONG).show();
+                                    "andamento.", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(this, "Não foi possível identificar cliente.", Toast
-                            .LENGTH_LONG).show();
+                            .LENGTH_SHORT).show();
                 }
 
             } else {
                 Toast.makeText(this, "Não foi possível identificar cliente.", Toast
-                        .LENGTH_LONG).show();
+                        .LENGTH_SHORT).show();
             }
         }
     }

@@ -55,6 +55,10 @@ public class Produto implements Serializable{
         return valor;
     }
 
+    public String getPrintValor() {
+        return "R$" + valor + ",00";
+    }
+
     public void setValor(int valor) {
         this.valor = valor;
     }

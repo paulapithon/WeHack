@@ -10,10 +10,10 @@
         android:id="@+id/user_products"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="120dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/background"
         android:headerDividersEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -71,27 +71,14 @@
         app:layout_constraintStart_toEndOf="@+id/pay_btn" />
 
     <TextView
-        android:id="@+id/user_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:singleLine="true"
-        android:text="0"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/pay_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total"
-        app:layout_constraintBottom_toTopOf="@+id/user_total"
-        app:layout_constraintStart_toStartOf="@+id/user_total" />
+        android:layout_marginEnd="8dp"
+        android:text="Total:"
+        app:layout_constraintBottom_toBottomOf="@+id/user_total"
+        app:layout_constraintEnd_toStartOf="@+id/user_total"
+        app:layout_constraintTop_toTopOf="@+id/user_total" />
 
     <ImageButton
         android:id="@+id/exit_btn"
@@ -104,5 +91,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Valor Unitário"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/user_products"
+        app:layout_constraintEnd_toEndOf="@+id/user_products" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Produto"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/user_products"
+        app:layout_constraintStart_toStartOf="@+id/user_products" />
+
+    <TextView
+        android:id="@+id/user_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="R$0"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/add_product"
+        app:layout_constraintEnd_toEndOf="@+id/add_product" />
 
 </android.support.constraint.ConstraintLayout>

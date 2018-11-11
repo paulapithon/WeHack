@@ -45,7 +45,7 @@ public class UserAdapter extends ArrayAdapter<User> {
         holder.name.setText(user.getNome());
         holder.cpf.setText(user.getCPF());
         holder.wallet.setText(user.getWallet());
-        if (user.getTimestamp() != null) holder.timestamp.setText(user.getTimestamp());
+        holder.timestamp.setText(user.getTimestamp());
 
         return convertView;
     }
