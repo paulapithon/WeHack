@@ -1,4 +1,8 @@
-# Argen
+# Eloise
+
+
+_Prazer, eu sou a Eloise, mas pode me chamar de Elô, a sua inteligência artificial para facilitar suas compras._
+<img src="imgs/eloise_preto_transparente.png" alt="drawing" width="300"/>
 
 ## O nosso time incrível
 
