@@ -77,15 +77,16 @@ public class User implements Serializable {
     }
 
     public String getTimestamp() {
-        return timestamp;
+        String[] pieces = timestamp.split(" ");
+        return pieces[0];
     }
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 
-    public int getWallet() {
-        return wallet;
+    public String getWallet() {
+        return "R$" + wallet + ",00";
     }
 
     public void setWallet(int wallet) {
@@ -108,7 +109,7 @@ public class User implements Serializable {
     }
 
     public String getCPF() {
-        return CPF;
+        return "CPF: " + CPF;
     }
 
     public void setCPF(String CPF) {

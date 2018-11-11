@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -27,6 +28,7 @@ public class DashboardActivity extends AppCompatActivity {
     private String TAG = "elo.Dashboard";
 
     private Fragment currentFragment;
+    private TextView header;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -37,10 +39,12 @@ public class DashboardActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     CurrentFragment current = new CurrentFragment();
                     openFragment(current);
+                    header.setText("Pedidos");
                     return true;
                 case R.id.navigation_dashboard:
                     HistoryFragment history = new HistoryFragment();
                     openFragment(history);
+                    header.setText("Histórico");
                     return true;
                 case R.id.navigation_notifications:
                     return true;
@@ -54,9 +58,12 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        header = findViewById(R.id.header);
+
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         openFragment(new CurrentFragment());
+        header.setText("Pedidos");
     }
 
     public void openFragment(Fragment fragment) {

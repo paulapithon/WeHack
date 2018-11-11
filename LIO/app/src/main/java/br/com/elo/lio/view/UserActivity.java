@@ -8,18 +8,15 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -60,12 +57,10 @@ public class UserActivity extends AppCompatActivity {
         name.setText(user.getNome());
         TextView cpf = findViewById(R.id.user_cpf);
         cpf.setText(user.getCPF());
-        TextView email = findViewById(R.id.user_email);
-        email.setText(user.getEmail());
         total = findViewById(R.id.user_total);
-        if (user.getWallet() != 0) total.setText(Integer.toString(user.getWallet()));
+        total.setText(user.getWallet());
 
-        Button exitBtn = findViewById(R.id.exit_btn);
+        ImageButton exitBtn = findViewById(R.id.exit_btn);
         exitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +92,7 @@ public class UserActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton addBtn = findViewById(R.id.add_product);
+        Button addBtn = findViewById(R.id.add_product);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,7 +143,7 @@ public class UserActivity extends AppCompatActivity {
         productList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        total.setText(Integer.toString(user.getWallet()));
+        total.setText(user.getWallet());
         UserPersistence.addUser(user);
 
         RetrofitClient.getAPIService().update(
