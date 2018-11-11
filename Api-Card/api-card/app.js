@@ -1,3 +1,5 @@
+//Inicia o restAPI e as rotas que serão utilizadas.
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -9,7 +11,7 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-// view engine setup
+// configuração da engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.listen(process.env.PORT, process.env.IP);
