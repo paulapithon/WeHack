@@ -159,7 +159,51 @@ const queries = {
         key
      }
     }`
-
+    ,
+    queryCards:
+    `query {  
+    user {
+        cardHolders{
+            cards{
+                edges{
+                    node{
+                        id
+                        last4
+                        expiry{
+                            month
+                            year
+                        }
+                    }
+                }
+            }
+        }
+    }
+}`,
+    historico:`query {
+    user {
+        cardHolders {
+            cards {
+                edges {
+                    node {
+                        transactionsSummary(filter: {
+                            startTimestamp: "2017-10-01T00:00:00Z", 
+                            endTimestamp: "2017-12-07T00:00:00Z",
+                            includeMerchantCategories:[{ min:7, max:8 }], 
+                            excludeMerchantCategories:[{ min:1, max:6 }]
+                        }) 
+                        {
+                            category{ id, iso , name }, 
+                            count, 
+                            value
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+`
+    
 }
 
 class Elo {
@@ -172,10 +216,10 @@ class Elo {
         this.debug = debug;
       
         this.authorization = 'Basic ' + Buffer.from(`${client_id}:${secret}`).toString('base64');
-
-        if (this.debug) {
-            console.log("Authorization: ", this.authorization);
-        }
+        console.log("Authorization: ", this.authorization);
+        // if (this.debug) {
+        //     console.log("Authorization: ", this.authorization);
+        // }
     }
 
     // --------------
@@ -183,10 +227,10 @@ class Elo {
     // --------------
 
     async login(username, password) {
-        if (this.debug) {
-            console.log("Start Login");
-        }
-
+        // if (this.debug) {
+            
+        // }
+        console.log("Start Login");
         const challenge = await this.getChallenge(username, password);
 
         return await this.graphql({
@@ -203,25 +247,25 @@ class Elo {
         })
         .then(async (response) => {
             const accessToken = _.get(response, 'body.data.login.accessToken');
-
-            if (this.debug) {
-                console.log('accessToken: ', accessToken);
-            }
+            console.log('accessToken: ', accessToken);    
+            // if (this.debug) {
+            //     console.log('accessToken: ', accessToken);
+            // }
              this.access_token = accessToken
             return accessToken;
         })
     }
 
     async getChallenge(username, password) {
-        if (this.debug) {
-            console.log("Getting challenge");
-        }
-
+        // if (this.debug) {
+        //     console.log("Getting challenge");
+        // }
+        console.log("Getting challenge");
         let bcryptPassword = this.getBcryptPassword(username, password);
-
-        if (this.debug) {
-            console.log("Getting loginSalt");
-        }
+        console.log("Getting loginSalt");
+        // if (this.debug) {
+        //     console.log("Getting loginSalt");
+        // }
 
         // Tendo o bcryptPassword em mãos é preciso obter o loginSalt de seu username
         // para isso execute a mutation `createLoginSalt` no graphql
@@ -238,30 +282,30 @@ class Elo {
         })
         .then(async (response) => {
             const salt = _.get(response, 'body.data.createLoginSalt.salt');
-
-            if (this.debug) {
-                console.log('   loginSalt: ', salt);
-            }
+            console.log('   loginSalt: ', salt);
+            // if (this.debug) {
+            //     console.log('   loginSalt: ', salt);
+            // }
 
             return salt;
         })
         .then((salt) => {
             // Aplicar o algoritmo bcrypt utilizando o bcryptPassword e o salt gerado no item anterior.
             let challenge = bcrypt.hashSync(bcryptPassword, salt);
-
-            if (this.debug) {
-                console.log('   challenge: ', challenge);
-            }
+            console.log('   challenge: ', challenge);
+            // if (this.debug) {
+            //     console.log('   challenge: ', challenge);
+            // }
 
             return challenge;
         });
     }
-
+    
     getBcryptPassword(username, password) {
-        if (this.debug) {
-            console.log("Getting bcryptPassword");
-        }
-
+        // if (this.debug) {
+        //     console.log("Getting bcryptPassword");
+        // }
+        console.log("Getting bcryptPassword");
         // 1º Passo: Gerar um salt a partir do nome de usuário:
         // Aplicar o algoritmo SHA256 no nome do usuário e reservar os 16 primeiros caracteres.
         let hash = crypto.createHash('sha256').update(username).digest();
@@ -279,10 +323,10 @@ class Elo {
         let bcryptPassword = bcrypt.hashSync(sha256Password, usernameSalt);
         // uhull \o/ temos o bcryptPassword
 
-        if (this.debug) {
-            console.log('   bcryptPassword:', bcryptPassword);
-        }
-
+        // if (this.debug) {
+        //     console.log('   bcryptPassword:', bcryptPassword);
+        // }
+         console.log('   bcryptPassword:', bcryptPassword);
         return bcryptPassword;
     }
 
@@ -291,10 +335,10 @@ class Elo {
     //--------------------
     
    async createCardHolderForUser(accessToken) {
-        if (this.debug) {
-            console.log("Start Create Card Holder");
-        }
-    
+        // if (this.debug) {
+        //     console.log("Start Create Card Holder");
+        // }
+        console.log("Start Create Card Holder");
         return await this.graphql({
             headers: {
                 'client_id': this.client_id,
@@ -308,10 +352,10 @@ class Elo {
         .then(async (response) => {
             const cardHolderId = _.get(response, 'body.data');
 
-            if (this.debug) {
-                console.log('CardHolderId: ', cardHolderId);
-            }
-
+            // if (this.debug) {
+            //     console.log('CardHolderId: ', cardHolderId);
+            // }
+            console.log('CardHolderId: ', cardHolderId);
             return cardHolderId;
         }).catch(async (error) => { 
             
@@ -319,10 +363,11 @@ class Elo {
             return "não funcionou a criação do HolderId"});
     }
     
-     async create(username, password) {
-        if (this.debug) {
-            console.log("Start Create");
-        }
+   async create(username, password) {
+        // if (this.debug) {
+        //     console.log("Start Create");
+        // }
+        console.log("Start Create");
         const bcryptPassword = this.getBcryptPassword(username, password)
         console.log(bcryptPassword)
         return await this.graphql({
@@ -338,10 +383,10 @@ class Elo {
         })
         .then(async (response) => {
             const accessToken = _.get(response, 'body.data.id');
-            
-            if (this.debug) {
-                console.log('accessToken: ', accessToken);
-            }
+            console.log('accessToken: ', accessToken);
+            // if (this.debug) {
+            //     console.log('accessToken: ', accessToken);
+            // }
             this.access_token = accessToken
             return accessToken;
         }).catch(async (error) => { 
@@ -352,12 +397,11 @@ class Elo {
     // --------------------
     // Create Card Methods
     // --------------------
-
     async createCard(sensitive, id , accessToken){
-           if (this.debug) {
-            console.log("Start add card in user");
-        }
-    
+        //   if (this.debug) {
+        //     console.log("Start add card in user");
+        // }
+        console.log("Start add card in user");
         return await this.graphql({
             headers: {
                 'client_id': this.client_id,
@@ -365,17 +409,16 @@ class Elo {
             },
             query: mutations.createCard,
             variables: {
-
                id : id,
                sensitive : sensitive
             }
         })
         .then(async (response) => {
             const result = _.get(response, 'body.data');
-
-            if (this.debug) {
-                console.log('Resultado: ', result);
-            }
+            console.log('Resultado: ', result);
+            // if (this.debug) {
+            //     console.log('Resultado: ', result);
+            // }
 
             return result;
         }).catch(async (error) => { 
@@ -395,14 +438,13 @@ class Elo {
             variables: { id: accessToken }
         })
         .then(async (response) => {
-            const cardHolderId = _.get(response.body, 'data.user.cardHolders[0].id');
-
+            // const cardHolderId = _.get(response.body, 'data.user.cardHolders[0].id');
+            const cardHolderId = _.get(response.body, 'data');
             console.log(response.body.data)
-
-            if (this.debug) {
-                console.log('cardHolderId:', cardHolderId);
-            }
-
+            // if (this.debug) {
+            //     console.log('cardHolderId:', cardHolderId);
+            // }
+            console.log('cardHolderId:', cardHolderId);
             return cardHolderId;
         });
     }
@@ -433,8 +475,8 @@ class Elo {
     async addPublicKeyToUser(key, accessToken) {
         //delete key.public['kid'];
         const keyString = JSON.stringify(key.public)
-
         console.log(keyString);
+        
         return await this.graphql({
             headers: {
                 'client_id': this.client_id,
@@ -467,13 +509,51 @@ class Elo {
         // Criptografando o documento assinado com chave publica da plataforma Elo
         const sensitive = await this.encrypt(serverKey, signed);
 
-        if (this.debug) {
-            console.log("Sensitive: ", sensitive);
-        }
-
+        // if (this.debug) {
+        //     console.log("Sensitive: ", sensitive);
+        // }
+        
+        console.log("Sensitive: ", sensitive);
         return sensitive;
     }
-
+     async historico(accessToken){
+        return await this.graphql({
+            headers: {
+                'client_id': this.client_id,
+                'access_token': accessToken
+            },
+            query: queries.historico,
+        })
+        .then(async (response) => {
+            // const cardHolderId = _.get(response.body, 'data.user.cardHolders[0].id');
+            const historicos = _.get(response.body, 'data');
+            console.log(response.body.data)
+            // if (this.debug) {
+            //     console.log('cardHolderId:', cardHolderId);
+            // }
+            console.log('historico:', historicos);
+            return historicos;
+        });
+     }
+    async getCards(accessToken){
+        return await this.graphql({
+            headers: {
+                'client_id': this.client_id,
+                'access_token': accessToken
+            },
+            query: queries.queryCards,
+        })
+        .then(async (response) => {
+            // const cardHolderId = _.get(response.body, 'data.user.cardHolders[0].id');
+            const cards = _.get(response.body, 'data');
+            console.log(response.body.data)
+            // if (this.debug) {
+            //     console.log('cardHolderId:', cardHolderId);
+            // }
+            console.log('cards:', cards);
+            return cards;
+        });
+     }
     async sign(key, object) {
         return await jose.JWS.createSign({ format: 'compact', alg: 'ES256' }, key)
                              .update(JSON.stringify(object))
@@ -516,7 +596,6 @@ class Elo {
         })
     }
 
-
     async getServerKey(accessToken) {
 
         const serverKeyPath = './saved-keys/server-key.json';
@@ -528,10 +607,8 @@ class Elo {
         return await fetch(this.serverKeyEndpoint, {
             method: "GET",
             headers: {
-
                 client_id: this.client_id,
                 access_token: accessToken
-
             },
         }).then(async (response) => {
             const json = await response.json()
