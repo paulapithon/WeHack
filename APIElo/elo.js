@@ -13,6 +13,7 @@ const saveKeyPair = (key, client_id) => {
     fs.mkdirpSync(keyPairDir(client_id));
     fs.writeFileSync(`${keyPairDir(client_id)}/keypair.json`, JSON.stringify(key, null, '\t'));
 }
+
 //mutations configurados para requisições
 const mutations = {
     createCardHolderForUser:` 
@@ -109,11 +110,11 @@ const mutations = {
         }
     `,
     createCard:`
-            mutation ($accessToken: ID!, $sensitive: String!) {
+            mutation ($id: ID!, $sensitive: String!) {
             createCard(input: {
                 clientMutationId: "123",             
                 sensitive: $sensitive,
-                holderId: $accessToken,
+                holderId: $id,
                 billingAddress: {
                     context: "Casa",
                     number: 123,
@@ -144,12 +145,20 @@ const queries = {
         query ($id: String!) {
             user(id: $id) {
                 id,
+                name
                 cardHolders {
                     id
                 }
             }
         }
     `
+    ,
+    queryServerPublicKey:`
+    query {
+    serverPublicKey {
+        key
+     }
+    }`
 }
 
 class Elo {
@@ -309,7 +318,7 @@ class Elo {
             return "não funcionou a criação do HolderId"});
     }
     
-     async create(username, password) {
+   async create(username, password) {
         if (this.debug) {
             console.log("Start Create");
         }
@@ -342,7 +351,7 @@ class Elo {
     // --------------------
     // Create Card Methods
     // --------------------
-    async createCard(sensitive, accessToken){
+    async createCard(sensitive, id , accessToken){
            if (this.debug) {
             console.log("Start add card in user");
         }
@@ -354,7 +363,7 @@ class Elo {
             },
             query: mutations.createCard,
             variables: {
-               accessToken : accessToken,
+               id : id,
                sensitive : sensitive
             }
         })
@@ -384,7 +393,7 @@ class Elo {
         })
         .then(async (response) => {
             const cardHolderId = _.get(response.body, 'data.user.cardHolders[0].id');
-
+            console.log(response.body.data)
             if (this.debug) {
                 console.log('cardHolderId:', cardHolderId);
             }
@@ -419,8 +428,8 @@ class Elo {
     async addPublicKeyToUser(key, accessToken) {
         //delete key.public['kid'];
         const keyString = JSON.stringify(key.public)
-        // console.log(keyString);
-
+        console.log(keyString);
+        
         return await this.graphql({
             headers: {
                 'client_id': this.client_id,
@@ -433,15 +442,22 @@ class Elo {
                 key: keyString
             }
         })
-        .then((response) => _.get(response, 'body.data.addPublicKeyToUser.publicKey.key'));
+        .then((response) =>{  
+            
+            const result = _.get(response,'body.data.addPublicKeyToUser.publicKey.key')
+            
+            console.log('key: '+ result)
+            })
+        .catch((error) => console.log('ta'));
     }
 
-    async getSensitive(myKey, card) {
+    async getSensitive(myKey, card, accessToken) {
         // Objeto do cartão é assinado por sua chave privada
-        const signed = await this.sign(myKey.pair, card);
+    
+        const signed = await this.sign(myKey.pair,card);
 
         // Buscando chave pública na plataforma Elo
-        const serverKey = await this.getServerKey();
+        const serverKey = await this.getServerKey(accessToken);
 
         // Criptografando o documento assinado com chave publica da plataforma Elo
         const sensitive = await this.encrypt(serverKey, signed);
@@ -495,7 +511,8 @@ class Elo {
         })
     }
 
-    async getServerKey() {
+    async getServerKey(accessToken) {
+
         const serverKeyPath = './saved-keys/server-key.json';
 
         if (fs.existsSync(serverKeyPath)) {
@@ -505,7 +522,8 @@ class Elo {
         return await fetch(this.serverKeyEndpoint, {
             method: "GET",
             headers: {
-                client_id: this.client_id
+                client_id: this.client_id,
+                access_token: accessToken
             },
         }).then(async (response) => {
             const json = await response.json()

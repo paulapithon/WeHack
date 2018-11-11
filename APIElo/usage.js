@@ -45,7 +45,7 @@ elo.login(email, senha).then(async (accessToken) => {
     let key = await elo.fetchOrGenerateJWK('my-key-id', args.client_id);
        
   // Registre sua chave na plataforma Elo
-    await elo.addPublicKeyToUser(key, accessToken)
+   // await elo.addPublicKeyToUser(key, accessToken)
 
    //Informações para criar o sensitive
     //em um objeto como o exemplo abaixo
@@ -55,7 +55,7 @@ elo.login(email, senha).then(async (accessToken) => {
             month: "02",
             year: "2020"
         },
-        name: "João da Silva",
+        name: "Joao da Silva",
         csc: "012",
         cscEntryTime: moment("2017-01-00").toISOString(),
         authCode: "AB123Z1Y",
@@ -64,8 +64,10 @@ elo.login(email, senha).then(async (accessToken) => {
 
 //     // // Gerar sensitive utilizando chave public e chave do servidor
 //     // // Veja mais detalhes dentro da função
-    const sensitive = await elo.getSensitive(key, card);
-     await elo.createCard(sensitive, accessToken);
-//     // // // Consulte o cardHolderId
+  
+    const sensitive = await elo.getSensitive(key, card, accessToken);
     const cardHolderId = await elo.getCardHolderId(accessToken);
+    // await elo.createCard(sensitive, cardHolderId, accessToken);
+//     // // // Consulte o cardHolderId
+  
 });
