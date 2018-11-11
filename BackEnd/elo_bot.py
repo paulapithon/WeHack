@@ -158,7 +158,11 @@ def telegram():
         action = response_obj["result"]["action"]
         print("action = " + action);
         if action == "gerar_qr_code":
-            img = qrcode.make('{"id":'+str(msg_id)+',"nome":"'+data["message"]["from"]["first_name"].encode('utf-8') + " " + data["message"]["from"]["first_name"].encode('utf-8') +'", "cpf":"110.558.284-20","email":""}').save("imgs/" + str(msg_id) +  str(data["message"]["date"]) + '.png')
+            if "last_name" in json.dumps(data["message"]["from"]):
+                img = qrcode.make('{"id":'+str(msg_id)+',"nome":"'+data["message"]["from"]["first_name"].encode('utf-8') + " " + data["message"]["from"]["last_name"].encode('utf-8') +'", "cpf":"110.558.284-20","email":""}').save("imgs/" + str(msg_id) +  str(data["message"]["date"]) + '.png')
+            else:
+                img = qrcode.make('{"id":'+str(msg_id)+',"nome":"'+data["message"]["from"]["first_name"].encode('utf-8')+'", "cpf":"110.558.284-20","email":""}').save("imgs/" + str(msg_id) +  str(data["message"]["date"]) + '.png')
+           
             url = URL + "/sendPhoto?chat_id=" + str(msg_id) + "&photo=https://elo-michaelbarney.c9users.io/imgs/" + str(msg_id) +  str(data["message"]["date"]) + ".png"
             print(url)
             get_url(url)
@@ -317,7 +321,7 @@ def update():
     
     
     ##update the JSON
-    with open(str(uid) + '.json', 'a') as outfile:  
+    with open(str(uid) + '.json', 'w') as outfile:  
         json.dump(data, outfile)
     return '{"ok": "ok"}', 200
 
