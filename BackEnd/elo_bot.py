@@ -192,6 +192,7 @@ def telegram():
                             for uid in data2["participating_ids"]:
                                 processPayment("d9a6696f-708e-4c58-9977-62290337944d", "NYSUGODOTIOIFTPGQWWGOTPEJVXAYRVGIJTFJYGT", data["message"]["chat"]["title"] , data3["wallet"])
                                 send_message_telegram("Pagamento finalizado! Total: R$ " + str(data3["wallet"]/len(data2["participating_ids"])) + " para cada pessoa.", str(uid));
+                                print("Senn to: " + str(uid))
                     else:
                         for uid in data2["participating_ids"]:
                             send_message_telegram("Pagamento compartilhado finalizado!", str(uid));
@@ -219,7 +220,17 @@ def telegram():
                 outfile.truncate(0)
                 json.dump(data2, outfile)
                 print("novo dividir")
-                
+        
+        elif action == "ver_meus_cartoes":
+            data = requests.get(url = "https://api-card-michaelbarney.c9users.io/users/cards").json()
+            print(data["cards"]["edges"])
+            for edge in data["cards"]["edges"]:
+                last4 = edge["node"]["last4"]
+                expY = str(edge["node"]["expiry"]["year"])
+                expM = str(edge["node"]["expiry"]["month"])
+                send_message_telegram("**** **** **** " + last4 + " - " + expM + "/" + expY, str(msg_id));
+
+            
     return "ok", 200
     
 @app.route('/telegram', methods=['GET'])
