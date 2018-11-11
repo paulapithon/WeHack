@@ -11,6 +11,15 @@ public class Produto implements Serializable{
     private int valor;
     private int quantidade;
 
+    public Produto() {
+    }
+
+    public Produto(String nome, int valor, int quantidade) {
+        this.nome = nome;
+        this.valor = valor;
+        this.quantidade = quantidade;
+    }
+
     public void decode(String string) {
         try {
             JSONObject jsonObject = new JSONObject(string);
@@ -53,6 +62,10 @@ public class Produto implements Serializable{
 
     public int getValor() {
         return valor;
+    }
+
+    public String getPrintValor() {
+        return "R$" + valor + ",00";
     }
 
     public void setValor(int valor) {

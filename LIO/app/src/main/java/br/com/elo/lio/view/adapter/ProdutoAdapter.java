@@ -42,8 +42,8 @@ public class ProdutoAdapter extends ArrayAdapter<Produto> {
 
         Produto produto = produtoList.get(position);
         holder.name.setText(produto.getNome());
-        holder.valor.setText(Integer.toString(produto.getValor()));
-        holder.quantidade.setText(Integer.toString(produto.getQuantidade()));
+        holder.valor.setText(produto.getPrintValor());
+        holder.quantidade.setText(Integer.toString(produto.getQuantidade()) + " x");
 
         return convertView;
     }
