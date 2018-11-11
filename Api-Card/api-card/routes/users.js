@@ -13,7 +13,7 @@ const email = "tato@hotmail.com";
 const senha = "123456";
 const elo = new Elo(args);
 
-/* GET users listing. */
+//Rotas GET para enviar o card e o historico do usuario!
 router.get('/cards', function(req, res, next) {
     const authorization = elo.authorization
     const bcryptPassword = elo.getBcryptPassword(email, senha);

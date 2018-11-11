@@ -5,6 +5,7 @@ const jose = require('node-jose');
 const fetch = require('node-fetch');
 const _ = require('lodash');
 
+
 const keyPairDir = (client_id) => {
     return `./saved-keys/${client_id}`;
 }
@@ -164,6 +165,7 @@ const queries = {
     `query {  
     user {
         cardHolders{
+            name
             cards{
                 edges{
                     node{
@@ -545,7 +547,7 @@ class Elo {
         })
         .then(async (response) => {
             // const cardHolderId = _.get(response.body, 'data.user.cardHolders[0].id');
-            const cards = _.get(response.body, 'data');
+            const cards = _.get(response.body, 'data.user.cardHolders[0]');
             console.log(response.body.data)
             // if (this.debug) {
             //     console.log('cardHolderId:', cardHolderId);
