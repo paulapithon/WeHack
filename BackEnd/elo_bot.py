@@ -15,12 +15,18 @@ PAGE_ACCESS_TOKEN = "EAADjbVfm4fEBAObWLdDI6H90WNFVTjSSrMEe02Pcbq66HWfWH9ZBZA0FYG
 #TELEGRAM
 TELEGRAM_TOKEN = "620374745:AAF-pRZCG-P3r9IGdLZsImT5JRx6W_cNLhI"
 URL = "https://api.telegram.org/bot" + TELEGRAM_TOKEN
+import telebot
+tb = telebot.TeleBot(TELEGRAM_TOKEN)
 
 
 import os
 import sys
 import json
 import requests
+
+#QRCode
+import qrcode
+from flask import Flask, request
 
 try:
     import apiai
@@ -30,7 +36,6 @@ except ImportError:
     )
     import apiai
 
-from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -101,29 +106,8 @@ def webhook():
                     response_obj = json.loads(responsestr)
                     print (responsestr)
                     msg = response_obj["result"]["fulfillment"]["messages"][0]["speech"].encode('utf-8')
-                    
-                    #print (msg.encode('utf-8'))
-                    #size = range(len(response_obj["entry"][0]["messaging"])/2)
-                    #if size == []:
-                    #  size = [0]
                       
                     send_message(sender_id,msg)  
-                    # print (size)
-                    # for i in size:
-                    #   msg = response_obj["entry"]["messaging"][i]["message"]["text"].encode('utf-8')
-                    #   print msg
-                    #   #print (range(len(response_obj["result"]["fulfillment"]["messages"])))
-                             
-                    #   send_message(sender_id, msg)
-                    #   #verificar se usuário confirmou 
-                    #   if "voce agora sera notificado" in msg:
-                    #     adicionar_notificaveis(sender_id)
-                    #   #ou cancelou
-                    #   elif "você não receberá mais notificações" in msg:
-                    #     remover_notificaveis(sender_id)
-                    
-                    # print ("ACABOU")
-                    
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -141,11 +125,12 @@ def webhook():
 def telegram():
     data = request.get_json()
     print(data);
+    if "text" not in data["message"]:
+        return "not text", 200
     print(data["message"]["text"])
     msg_text = data["message"]["text"];
     msg_id = data["message"]["chat"]["id"]
-    #send_message_telegram(msg_text, str(msg_id));
-    
+
     #dialogflow
     req = ai.text_request()
     req.session_id = msg_id
@@ -156,16 +141,38 @@ def telegram():
     
     print(response_obj)
     
-    msg = response_obj["result"]["fulfillment"]["messages"][0]["speech"].encode('utf-8')
-      
-    send_message_telegram(msg, str(msg_id))  
+    #itirate all messages
+    for m in response_obj["result"]["fulfillment"]["messages"]:
+        if "platform" in  json.dumps(m):
+            print(json.dumps(response_obj["result"]))
+
+            ##Add Quick Replies
+            if "replies" in json.dumps(m):
+               quickReplies(msg_id, m["title"].replace("$user_name",data["message"]["from"]["first_name"]), m["replies"])
+            ##Send Message
+            else:         
+                send_message_telegram(m["speech"].replace("$user_name",data["message"]["from"]["first_name"]).encode('utf-8'), str(msg_id))  
+       
+    ##Execute Actions
+    if "action" in json.dumps(response_obj["result"]):
+        action = response_obj["result"]["action"]
+        print("action = " + action);
+        if action == "gerar_qr_code":
+            if "last_name" in json.dumps(data["message"]["from"]):
+                img = qrcode.make('{"id":'+str(msg_id)+',"nome":"'+data["message"]["from"]["first_name"].encode('utf-8') + " " + data["message"]["from"]["last_name"].encode('utf-8') +'", "cpf":"110.558.284-20","email":""}').save("imgs/" + str(msg_id) +  str(data["message"]["date"]) + '.png')
+            else:
+                img = qrcode.make('{"id":'+str(msg_id)+',"nome":"'+data["message"]["from"]["first_name"].encode('utf-8')+'", "cpf":"110.558.284-20","email":""}').save("imgs/" + str(msg_id) +  str(data["message"]["date"]) + '.png')
+           
+            url = URL + "/sendPhoto?chat_id=" + str(msg_id) + "&photo=https://elo-michaelbarney.c9users.io/imgs/" + str(msg_id) +  str(data["message"]["date"]) + ".png"
+            print(url)
+            get_url(url)
     
     return "ok", 200
     
 @app.route('/telegram', methods=['GET'])
 def telegram_get():
-    return "Works", 200
-
+    return "works", 200
+    
 def get_url(url):
     response = requests.get(url)
     content = response.content.decode("utf8")
@@ -173,6 +180,7 @@ def get_url(url):
 
 def send_message_telegram(text, chat_id):
     url = URL + "/sendMessage?chat_id=" + chat_id + "&text=" + text
+    print(url);
     get_url(url)
 
 def adicionar_notificaveis(sender_id):
@@ -223,69 +231,107 @@ def send_message(recipient_id, message_text):
         log(r.status_code)
         log(r.text)
 
+def quickReplies(chat_id, title, replies):
+    types = telebot.types #
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
+    for reply in replies:
+        markup.add(types.KeyboardButton(reply))
+    tb.send_message(chat_id, title, reply_markup=markup)
+
+@app.route("/imgs/<path:path>")
+def images(path):
+    fullpath = "./imgs/" + path
+    resp = app.make_response(open(fullpath).read())
+    resp.content_type = "image/jpeg"
+    return resp
 
 def log(message):  # simple wrapper for logging to stdout on heroku
     print str(message)
     sys.stdout.flush()
-
-def check():
-    data_de_hoje = time.strftime("%d/%m/%Y") #tem que atualizar algumas vezes durante o dia
-    ano = time.strftime("%Y")
-    print (data_de_hoje)
-
-    url_str = "http://www.camara.leg.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoesVotadasEmPlenario?ano=" + ano + "&tipo="
-    xml_str = urllib2.urlopen(url_str).read()
-    xmldoc = minidom.parseString(xml_str)
-    proposicoes= xmldoc.getElementsByTagName('proposicao')
-
-    for proposicao in proposicoes:
-        data =  proposicao.getElementsByTagName('dataVotacao').item(0).firstChild.nodeValue
-        if data == data_de_hoje:
-          #ok, isso foi votado hoje
-          print data
-
-          #agora receber mais informações
-          #vamos precisar do tipo, do número e do ano
-          #tudo isso esta na informação "nomeProposicao" : <nomeProposicao>PL 4302/1998</nomeProposicao>
-          #vamos dividir por espaço e depois dividir por /
-          nomeProposicao =  proposicao.getElementsByTagName("nomeProposicao").item(0).firstChild.nodeValue
-          
-          
-          #agora verificar se essa proposicao não já foi notificada
-          file  = open('ditos.txt', 'r') 
-          if nomeProposicao in file.read():
-            file.close()
-            #ja foi dito
-          else:
-            file.close()
-            file  = open('ditos.txt', 'a') 
-            file.write(nomeProposicao + "\n")
-            file.close()
-          
-            tipo = nomeProposicao.split(' ')[0]
-            numero = nomeProposicao.split(' ')[1].split('/')[0]
-            ano =  nomeProposicao.split(' ')[1].split('/')[1]
-
-            url_str = "http://www.camara.leg.br/SitCamaraWS/Proposicoes.asmx/ObterProposicao?tipo=" + tipo + "&numero=" + numero + "&ano=" + ano
-            xml_str = urllib2.urlopen(url_str).read()
-            xmldoc = minidom.parseString(xml_str)
-
-            tema = xmldoc.getElementsByTagName('tema').item(0).firstChild.nodeValue.encode('utf-8')
-            ementa = xmldoc.getElementsByTagName('Ementa').item(0).firstChild.nodeValue.encode('utf-8')
-            link = xmldoc.getElementsByTagName('LinkInteiroTeor').item(0).firstChild.nodeValue.encode('utf-8')
-
-            notificar(nomeProposicao, tema, ementa, link)
-
-            print nomeProposicao
-            print tema
-            print ementa
-            print link + "\n\n"
-          
-    threading.Timer(3600, check).start() #3600 = 1h
     
+
+##PAYMENT ROUTES
+@app.route('/payment', methods=['POST'])
+def payment():
+    data = json.loads(request.get_json())
+    #data = request.get_json()
+    print(data)
+    uid = data["id"]
+    name = data["nome"]
+    valor = data["wallet"]
+    
+    Id = request.headers.get('MerchantId')
+    Key = request.headers.get('MerchantKey')
+    print("ID: " + str(Id) + " KEY " + str(Key))
+    ##do the payment
+    params = {
+    }
+    headers = {
+        "MerchantId": Id,
+        "MerchantKey": Key,
+        "Content-Type": "application/json"
+    }
+    data = json.dumps({
+           "MerchantOrderId":"2014111703",
+           "Customer":{
+              "Name": name
+           },
+           "Payment":{
+             "Type":"CreditCard",
+             "Amount":valor,
+             "Installments":1,
+             "SoftDescriptor":"123456789ABCD",
+             "CreditCard":{
+                 "CardNumber":"0000000000000001",
+                 "Holder":name,
+                 "ExpirationDate":"12/2030",
+                 "SecurityCode":"123",
+                 "Brand":"Visa"
+             }
+           }
+    })
+    r = requests.post("https://apisandbox.cieloecommerce.cielo.com.br/1/sales", params=params, headers=headers, data=data)
+    print(r.status_code)
+    if r.status_code != 201:
+        log(r.status_code)
+        log(r.text)
+        print("deu ruim")
+        return "deu ruim", 300
+    
+    print("deu bem, enviando")
+   #send_message_telegram("Compra finalizada na Accenture Happy Hour. Custo final: " + str(valor), uid)
+    url = URL + "/sendMessage?chat_id=" + uid + "&text=" + "Compra finalizada na Accenture Happy Hour. Custo final: " + str(valor)
+    print(url);
+    get_url(url)
+    print("enviado");
+    return '{"ok": "ok"}', 200
+
+@app.route('/update', methods=['POST'])
+def update():
+    data = json.loads(request.get_json())
+    #data = request.get_json()
+    print(data)
+    uid = data["id"]
+    name = data["nome"]
+    valor = data["wallet"]
+    
+    Id = request.headers.get('MerchantId')
+    Key = request.headers.get('MerchantKey')
+    print("ID: " + str(Id) + " KEY " + str(Key))
+    
+    
+    ##update the JSON
+    with open(str(uid) + '.json', 'w') as outfile:  
+        json.dump(data, outfile)
+    return '{"ok": "ok"}', 200
+
+##chatbot commands
+@tb.message_handler(commands=['dividir'])
+def handle_dividir(message):
+    send_message_telegram("Conta dividida iniciada! Digite \participar para entrar.")
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 3000))
     print("Starting app on port %d" % port)
-    check()
     app.run(debug=False, port=port, host='0.0.0.0')
+    

@@ -159,6 +159,7 @@ const queries = {
         key
      }
     }`
+
 }
 
 class Elo {
@@ -318,7 +319,7 @@ class Elo {
             return "não funcionou a criação do HolderId"});
     }
     
-   async create(username, password) {
+     async create(username, password) {
         if (this.debug) {
             console.log("Start Create");
         }
@@ -351,6 +352,7 @@ class Elo {
     // --------------------
     // Create Card Methods
     // --------------------
+
     async createCard(sensitive, id , accessToken){
            if (this.debug) {
             console.log("Start add card in user");
@@ -363,6 +365,7 @@ class Elo {
             },
             query: mutations.createCard,
             variables: {
+
                id : id,
                sensitive : sensitive
             }
@@ -393,7 +396,9 @@ class Elo {
         })
         .then(async (response) => {
             const cardHolderId = _.get(response.body, 'data.user.cardHolders[0].id');
+
             console.log(response.body.data)
+
             if (this.debug) {
                 console.log('cardHolderId:', cardHolderId);
             }
@@ -428,8 +433,8 @@ class Elo {
     async addPublicKeyToUser(key, accessToken) {
         //delete key.public['kid'];
         const keyString = JSON.stringify(key.public)
+
         console.log(keyString);
-        
         return await this.graphql({
             headers: {
                 'client_id': this.client_id,
@@ -511,6 +516,7 @@ class Elo {
         })
     }
 
+
     async getServerKey(accessToken) {
 
         const serverKeyPath = './saved-keys/server-key.json';
@@ -522,8 +528,10 @@ class Elo {
         return await fetch(this.serverKeyEndpoint, {
             method: "GET",
             headers: {
+
                 client_id: this.client_id,
                 access_token: accessToken
+
             },
         }).then(async (response) => {
             const json = await response.json()

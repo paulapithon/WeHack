@@ -13,7 +13,7 @@ public class RetrofitClient {
                 .baseUrl("https://elo-michaelbarney.c9users.io")
                 .addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))
                 .build();
-
         return retrofit.create(APIService.class);
+
     }
 }

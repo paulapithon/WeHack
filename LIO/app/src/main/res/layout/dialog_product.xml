@@ -12,25 +12,33 @@
         android:layout_weight="1"
         android:ems="10"
         android:hint="Nome"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:paddingBottom="8dp" />
 
-    <EditText
-        android:id="@+id/edit_qtd"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
-        android:hint="Quantidade"
-        android:inputType="number"
-        android:padding="8dp" />
+        android:orientation="horizontal"
+        android:weightSum="4">
 
-    <EditText
-        android:id="@+id/edit_valor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
-        android:hint="Valor"
-        android:inputType="number" />
+        <EditText
+            android:id="@+id/edit_qtd"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:ems="10"
+            android:hint="Quantidade"
+            android:inputType="number"
+            android:padding="8dp" />
+
+        <EditText
+            android:id="@+id/edit_valor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Valor Unitário"
+            android:inputType="number" />
+
+    </LinearLayout>
 </LinearLayout>
