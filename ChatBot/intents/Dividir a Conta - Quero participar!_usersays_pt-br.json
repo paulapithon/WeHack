@@ -1,9 +1,9 @@
 [
   {
-    "id": "e3a45b7c-92db-4037-a313-d56d379a5424",
+    "id": "08e02c88-eac1-4b8d-bf7c-b6e2e13a373d",
     "data": [
       {
-        "text": "/finalizar",
+        "text": "Quero participar da cotinha",
         "userDefined": false
       }
     ],
@@ -11,10 +11,10 @@
     "count": 0
   },
   {
-    "id": "d4efa383-a99a-48d0-9213-ce324a34fcac",
+    "id": "9e84ecbb-3686-453a-9ad0-3a85b702d7c3",
     "data": [
       {
-        "text": "Finalizar",
+        "text": "Participar Também",
         "userDefined": false
       }
     ],
@@ -22,10 +22,10 @@
     "count": 0
   },
   {
-    "id": "9d620d9f-50c2-4a9e-bfa1-9da20e53705b",
+    "id": "f392622a-04f0-4953-b925-255f1998b9ff",
     "data": [
       {
-        "text": "Encerrar meu carrinho",
+        "text": "Quero participar!",
         "userDefined": false
       }
     ],
@@ -33,10 +33,10 @@
     "count": 0
   },
   {
-    "id": "2548fc11-5eef-40dd-986f-2c6d47bc4482",
+    "id": "364ae0f2-d3db-48eb-90c5-74994bb8c62b",
     "data": [
       {
-        "text": "Finalizar meu carrinho",
+        "text": "/participar",
         "userDefined": false
       }
     ],

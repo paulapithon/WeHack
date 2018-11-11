@@ -11,6 +11,12 @@
       "parameters": [],
       "messages": [
         {
+          "type": 3,
+          "platform": "telegram",
+          "lang": "pt-br",
+          "imageUrl": "https://i.imgur.com/LuzlD87.png"
+        },
+        {
           "type": 2,
           "platform": "telegram",
           "lang": "pt-br",
@@ -25,8 +31,8 @@
           "type": 0,
           "lang": "pt-br",
           "speech": [
-            "Olá $user_name! Eu sou a Eloise, mas você me chamar de Elô. Tô aqui pra te ajudar a ter toda uma experiência Elo cada vez mais Easy!",
-            "Oi $user_name, tudo bom? Eu sou a Eloise, mas você me chamar de Elô. Tô aqui pra te ajudar a ter toda uma experiência Elo cada vez mais Easy!"
+            "Olá $user_name! Eu sou a Eloise, mas você pode me chamar de Elô. Tô aqui pra te ajudar a ter toda uma experiência Elo cada vez mais Easy! São só três passos 😃",
+            "Oi $user_name, tudo bom? Eu sou a Eloise, mas você pode me chamar de Elô. Tô aqui pra te ajudar a ter toda uma experiência Elo cada vez mais Easy! São só três passos 😃"
           ]
         }
       ],

@@ -1,5 +1,16 @@
 [
   {
+    "id": "ba1fc9da-ed1c-4704-9684-48aa9bbeb73e",
+    "data": [
+      {
+        "text": "Me fale mais sobre.",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
     "id": "241b7268-ca52-429e-b50a-248f9c49acff",
     "data": [
       {
@@ -30,7 +41,7 @@
     "id": "d11c3843-684f-44ca-9488-7606d3abfb72",
     "data": [
       {
-        "text": "Me fale mais sobre..",
+        "text": "Me fale mais sobre...",
         "userDefined": false
       }
     ],

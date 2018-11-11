@@ -20,16 +20,18 @@
           "type": 2,
           "platform": "telegram",
           "lang": "pt-br",
-          "title": "Com a galera é sempre mais legal, para aceitar dividir a conta basta clicar em \"Quero dividir!\"",
+          "title": "Com a galera é sempre mais legal, para aceitar dividir a conta basta clicar em \"Quero dividir!\" dentro da conversa em grupo",
           "replies": [
-            "Quero dividir!",
+            "Quero participar!",
+            "Ver meu carrinho",
+            "Finalizar o carrinho",
             "Voltar ao menu"
           ]
         },
         {
           "type": 0,
           "lang": "pt-br",
-          "speech": []
+          "speech": "Para dividir a conta é necessário criar um grupo de conversa com todos os seus amigos que você quer dividir, então digite /dividir @elo_chatbot"
         }
       ],
       "defaultResponsePlatforms": {
