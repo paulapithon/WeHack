@@ -158,7 +158,10 @@ def telegram():
         action = response_obj["result"]["action"]
         print("action = " + action);
         if action == "gerar_qr_code":
-            sendQR(msg_id)
+            img = qrcode.make('{"id":'+str(msg_id)+',"nome":"'+data["message"]["from"]["first_name"].encode('utf-8') + " " + data["message"]["from"]["first_name"].encode('utf-8') +'", "cpf":"110.558.284-20","email":""}').save("imgs/" + str(msg_id) +  str(data["message"]["date"]) + '.png')
+            url = URL + "/sendPhoto?chat_id=" + str(msg_id) + "&photo=https://elo-michaelbarney.c9users.io/imgs/" + str(msg_id) +  str(data["message"]["date"]) + ".png"
+            print(url)
+            get_url(url)
     
     return "ok", 200
     
@@ -224,13 +227,6 @@ def send_message(recipient_id, message_text):
         log(r.status_code)
         log(r.text)
 
-def sendQR(text):
-    print("oi");
-    img = qrcode.make('{"id":'+str(text)+',"nome":"Michael Barney", "cpf":"110.558.284-20","email":"michaelbarneyjunior@gmail.com"}').save("imgs/" + str(text) + '.png')
-    url = URL + "/sendPhoto?chat_id=" + str(text) + "&photo=https://elo-michaelbarney.c9users.io/imgs/" + str(text) + ".png"
-    print(url)
-    get_url(url)
-
 def quickReplies(chat_id, title, replies):
     types = telebot.types #
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
@@ -253,8 +249,8 @@ def log(message):  # simple wrapper for logging to stdout on heroku
 ##PAYMENT ROUTES
 @app.route('/payment', methods=['POST'])
 def payment():
-    data = request.get_json()
-    data = data["nameValuePairs"]
+    data = json.loads(request.get_json())
+    #data = request.get_json()
     print(data)
     uid = data["id"]
     name = data["nome"]
@@ -298,9 +294,32 @@ def payment():
         print("deu ruim")
         return "deu ruim", 300
     
-    print("deu bem, enviado")
-    send_message_telegram("Compra finalizada na Accenture Happy Hour. Custo final: " + str(valor), uid)
-    return "ok", 200
+    print("deu bem, enviando")
+   #send_message_telegram("Compra finalizada na Accenture Happy Hour. Custo final: " + str(valor), uid)
+    url = URL + "/sendMessage?chat_id=" + uid + "&text=" + "Compra finalizada na Accenture Happy Hour. Custo final: " + str(valor)
+    print(url);
+    get_url(url)
+    print("enviado");
+    return '{"ok": "ok"}', 200
+
+@app.route('/update', methods=['POST'])
+def update():
+    data = json.loads(request.get_json())
+    #data = request.get_json()
+    print(data)
+    uid = data["id"]
+    name = data["nome"]
+    valor = data["wallet"]
+    
+    Id = request.headers.get('MerchantId')
+    Key = request.headers.get('MerchantKey')
+    print("ID: " + str(Id) + " KEY " + str(Key))
+    
+    
+    ##update the JSON
+    with open(str(uid) + '.json', 'a') as outfile:  
+        json.dump(data, outfile)
+    return '{"ok": "ok"}', 200
 
 ##chatbot commands
 @tb.message_handler(commands=['dividir'])
