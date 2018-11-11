@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.elo.lio.R;
@@ -96,10 +98,56 @@ public class UserActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addItem();
+                openListItems();
             }
         });
 
+    }
+
+    public void openListItems() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        List<String> nomes = new ArrayList<>();
+        for (Produto produto : getProdutos()) {
+            nomes.add(produto.getNome());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(UserActivity.this, android.R.layout.select_dialog_item, nomes);
+
+        builder.setTitle("Produtos pré-cadastrados");
+        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                List<Produto> produtos = user.getProdutos();
+                produtos.add(getProdutos().get(which));
+                user.setProdutos(produtos);
+                updateProduct();
+            }
+        });
+        builder.setPositiveButton("Inserir produto", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                addItem();
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
+
+    }
+
+    private List<Produto> getProdutos() {
+        List<Produto> produtos = new ArrayList<>();
+        produtos.add(new Produto("Água", 2, 1));
+        produtos.add(new Produto("RedBull", 8, 1));
+        produtos.add(new Produto("Caipirinha", 10, 1));
+        produtos.add(new Produto("Porção de fritas", 10, 1));
+        produtos.add(new Produto("Iscas de carne", 20, 1));
+        return produtos;
     }
 
     public void addItem() {
@@ -127,7 +175,7 @@ public class UserActivity extends AppCompatActivity {
                 updateProduct();
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
