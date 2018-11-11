@@ -13,3 +13,4 @@ Também foi feito o sensitive dos dados do cartão e a criação do cartão para
 - [x] Histórico de Transações
 
 Foi utilizado no desenvolvimento o código de Rafael Nunes Vieira para criptografia e facilitar o uso da API da Elo.
+Usado também o generate express para criar a estrutura rest.
