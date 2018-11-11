@@ -18,7 +18,7 @@ const mutations = {
     createCardHolderForUser:` 
     mutation ($accessToken: ID!){
             createCardHolderForUser(input:{
-                clientMutationId: "001",
+                clientMutationId: "123",
                 userId: $accessToken,
                 companyName: "companyName",
             })
@@ -109,7 +109,7 @@ const mutations = {
         }
     `,
     createCard:`
-            mutation ($clientMutationId: String!, $accessToken: ID!, $sensitive: String!) {
+            mutation ($accessToken: ID!, $sensitive: String!) {
             createCard(input: {
                 clientMutationId: "123",             
                 sensitive: $sensitive,
@@ -342,7 +342,37 @@ class Elo {
     // --------------------
     // Create Card Methods
     // --------------------
+    async createCard(sensitive, accessToken){
+           if (this.debug) {
+            console.log("Start add card in user");
+        }
+    
+        return await this.graphql({
+            headers: {
+                'client_id': this.client_id,
+                'access_token': accessToken
+            },
+            query: mutations.createCard,
+            variables: {
+               accessToken : accessToken,
+               sensitive : sensitive
+            }
+        })
+        .then(async (response) => {
+            const result = _.get(response, 'body.data');
 
+            if (this.debug) {
+                console.log('Resultado: ', result);
+            }
+
+            return result;
+        }).catch(async (error) => { 
+            
+            console.log(error);
+            return "não funcionou a criação"});
+    
+    }
+    
     async getCardHolderId(accessToken) {
         return await this.graphql({
             headers: {
